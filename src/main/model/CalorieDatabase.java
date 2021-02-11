@@ -9,6 +9,13 @@ public class CalorieDatabase {
     private double maintenanceCalories;     //MaintenanceCalories of the calorie tracking individual
     private double totalCaloriesConsumed;        //Total calories consumed by the calorie tracking individual
 
+    public CalorieDatabase(int userAge, int userHeight, int userWeight) {
+        height = userHeight;
+        age = userAge;
+        weight = userWeight;
+
+    }
+
     public double calculateMaintenance() {
         if (gender.equals("m")) {
             maintenanceCalories = 88.362 + (13.397 * weight) + (4.799 * height) - (4.33 * age);
