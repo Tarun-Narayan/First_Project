@@ -7,17 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalorieAppTest {
     private ListOfMeasurements testList;
-    private MaintenanceCalories testDatabase1;
-    private MaintenanceCalories testDatabase2;
-    private TrackCalories testTracker;
+    private UserMaintenanceCalories testDatabase1;
+    private UserMaintenanceCalories testDatabase2;
+    private UserMaintenanceCalories testDatabase3;
+    private CalorieTracker testTracker;
 
 
     @BeforeEach
     public void setup() {
         testList = new ListOfMeasurements();
-        testTracker = new TrackCalories();
-        testDatabase1 = new MaintenanceCalories(18, 180,65,"m");
-        testDatabase2 = new MaintenanceCalories(20, 170,65,"f");
+        testTracker = new CalorieTracker();
+        testDatabase1 = new UserMaintenanceCalories(18, 180,65,"m");
+        testDatabase2 = new UserMaintenanceCalories(20, 170,65,"f");
+        testDatabase3 = new UserMaintenanceCalories(20, 170,65,"g");
     }
     @Test
     void testMaintenanceCaloriesMale(){
@@ -27,6 +29,11 @@ class CalorieAppTest {
     @Test
     void testMaintenanceCaloriesFemale(){
         assertEquals(1488.708, testDatabase2.calculateMaintenance());
+
+    }
+    @Test
+    void testMaintenanceCaloriesIncorrectGender(){
+        assertEquals(0, testDatabase3.calculateMaintenance());
 
     }
     @Test
@@ -63,15 +70,15 @@ class CalorieAppTest {
         TodaysMeasurements measurements2 = new TodaysMeasurements(73,31,43,39);
         testList.addNewMeasurements(measurements2);
         assertEquals("\nMeasurement1:\n" +
-                " Weight:70.0\n" +
-                " Waist:32.0\n" +
-                " Shoulders:45.0\n" +
-                " Chest:40.0\n" +
+                " Body Weight:70.0 Kg\n" +
+                " Waist:32.0 inches\n" +
+                " Shoulders:45.0 inches\n" +
+                " Chest:40.0 inches\n" +
                 "Measurement2:\n" +
-                " Weight:73.0\n" +
-                " Waist:31.0\n" +
-                " Shoulders:43.0\n" +
-                " Chest:39.0",testList.viewListOfMeasurements());
+                " Body Weight:73.0 Kg\n" +
+                " Waist:31.0 inches\n" +
+                " Shoulders:43.0 inches\n" +
+                " Chest:39.0 inches",testList.viewListOfMeasurements());
     }
     @Test
     void testViewEmptyListOfMeasurements(){

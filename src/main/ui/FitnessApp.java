@@ -1,30 +1,34 @@
 package ui;
 
-import model.MaintenanceCalories;
+import model.UserMaintenanceCalories;
 import model.ListOfMeasurements;
 import model.TodaysMeasurements;
-import model.TrackCalories;
+import model.CalorieTracker;
 
 import java.util.Scanner;
 
-public class CalorieApp {
-    private TodaysMeasurements newMeasurements;
+
+//Represents the Health & Fitness application.
+public class FitnessApp {
     private ListOfMeasurements listOfMeasurements;
-    private MaintenanceCalories newMaintenance;
-    private TrackCalories trackCaloriesConsumed;
+    private CalorieTracker trackCaloriesConsumed;
     private Scanner input;
 
 
-    // EFFECTS: runs the calorie application
-    public CalorieApp() {
+    /*
+     *EFFECTS: runs the Health & Fitness application
+     */
+    public FitnessApp() {
         runCalorie();
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user input
+    /*
+     *MODIFIES: this
+     *EFFECTS: processes user input
+     */
     private void runCalorie() {
         boolean continueApplication = true;
-        String command = null;
+        String command;
 
         initialize();
 
@@ -45,6 +49,10 @@ public class CalorieApp {
 
     }
 
+    /*
+     *MODIFIES: this
+     *EFFECTS: processes user command
+     */
     private void processCommand(String command) {
         if (command.equals("t")) {
             trackCalories();
@@ -57,16 +65,22 @@ public class CalorieApp {
         } else if (command.equals("r")) {
             resetCalories();
         } else {
-            System.out.println("Selection not valid...");
+            System.out.println("Please select a valid option!");
         }
     }
 
+    /*
+     *EFFECTS: Initializes the list of Measurements and the Calorie tracker
+     */
     private void initialize() {
         listOfMeasurements = new ListOfMeasurements();
-        trackCaloriesConsumed = new TrackCalories();
+        trackCaloriesConsumed = new CalorieTracker();
         input = new Scanner(System.in);
     }
 
+    /*
+     *EFFECTS: displays menu of options to user
+     */
     private void displayMenu() {
         System.out.println("\nHi there! What would you like to do today?:");
         System.out.println("\tt -> Track Calories");
@@ -77,6 +91,10 @@ public class CalorieApp {
         System.out.println("\tq -> quit");
     }
 
+    /*
+     *MODIFIES: this
+     *EFFECTS: tracks the calories for a particular meal and adds it to the total calories consumed
+     */
     private void trackCalories() {
         System.out.println("Enter total calories consumed in this meal");
         double totalCalories = input.nextDouble();
@@ -88,6 +106,10 @@ public class CalorieApp {
 
     }
 
+    /*
+     *MODIFIES: this
+     *EFFECTS: calculates the user's maintenance calories (i.e, Basal Metabolic Rate)
+     */
     private void calculateMaintenance() {
         System.out.println("How old are you?");
         int age = input.nextInt();
@@ -97,11 +119,15 @@ public class CalorieApp {
         double height = input.nextDouble();
         System.out.println("Enter your Body Weight(in kg)");
         double weight = input.nextDouble();
-        newMaintenance = new MaintenanceCalories(age, height, weight, gender);
+        UserMaintenanceCalories newMaintenance = new UserMaintenanceCalories(age, height, weight, gender);
         System.out.printf("Total Calories required per "
                 + "day to maintain your body weight: %.2f\n", newMaintenance.calculateMaintenance());
     }
 
+    /*
+     *MODIFIES: this
+     *EFFECTS: accepts the user's body measurements for the day and adds it to the list of measurements
+     */
     private void inputMeasurements() {
         System.out.println("What was your body weight today?");
         double weight = input.nextDouble();
@@ -111,16 +137,23 @@ public class CalorieApp {
         float chest = input.nextFloat();
         System.out.println("What was your shoulder measurement today?(in inches)");
         float shoulder = input.nextFloat();
-        newMeasurements = new TodaysMeasurements(weight, waist, shoulder, chest);
+        TodaysMeasurements newMeasurements = new TodaysMeasurements(weight, waist, shoulder, chest);
         listOfMeasurements.addNewMeasurements(newMeasurements);
         System.out.println("Good job tracking today! \nMeasurements were successfully recorded");
     }
 
+    /*
+     *EFFECTS: displays the list of daily measurements made
+     */
     private void viewListOfMeasurements() {
         System.out.println("List of Measurements:" + listOfMeasurements.viewListOfMeasurements());
 
     }
 
+    /*
+     *MODIFIES: this
+     *EFFECTS: sets the tracked calories to 0
+     */
     public void resetCalories() {
         trackCaloriesConsumed.resetCalories();
         System.out.println("Total calories have been reset!");
