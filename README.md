@@ -11,7 +11,9 @@ this application to help anyone interested in tracking calories and losing/gaini
 
 ## *User Stories*-
 - As a user, I want to be able to track the number of calories I have consumed in the day.
-- As a user, I want to be able to calculate the number of calories I require to maintain my body weight(aka. my basal metabolic rate).
-- As a user, I want to be able to add my current body weight to a list of my previous body weights.
-- As a user, I want to be able to view my list of body weights to monitor my progress.
+- As a user, I want to be able to calculate the number of calories I require to maintain 
+my body weight(aka. my basal metabolic rate).
+- As a user, I want to be able to add my current body weight, chest, shoulder and waist measurements 
+to a list of my previously taken measurements.
+- As a user, I want to be able to view my list of body measurements to monitor my progress.
 
