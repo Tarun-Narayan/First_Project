@@ -41,7 +41,7 @@ public class CalorieApp {
         }
 
         System.out.println("\nGood job tracking today! \nHope to see you again tomorrow!"
-                + " \nYour health is an investment, not an experience!");
+                + " \nRemember, your health is an investment, not an experience!");
 
     }
 
@@ -54,6 +54,8 @@ public class CalorieApp {
             inputMeasurements();
         } else if (command.equals("v")) {
             viewListOfMeasurements();
+        } else if (command.equals("r")) {
+            resetCalories();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -71,6 +73,7 @@ public class CalorieApp {
         System.out.println("\tc -> Calculate your Maintenance Calories");
         System.out.println("\tm -> Record today's body measurements");
         System.out.println("\tv -> View a list of all your previously made measurements");
+        System.out.println("\tr -> Reset tracked Calories");
         System.out.println("\tq -> quit");
     }
 
@@ -89,14 +92,14 @@ public class CalorieApp {
         System.out.println("How old are you?");
         int age = input.nextInt();
         System.out.println("Enter your Gender(m - for Male and f- for Female)");
-        String gender = input.nextLine();
+        String gender = input.next();
         System.out.println("Enter your Height(in cm)");
         double height = input.nextDouble();
         System.out.println("Enter your Body Weight(in kg)");
         double weight = input.nextDouble();
         newMaintenance = new MaintenanceCalories(age, height, weight, gender);
-        System.out.println("Total Calories required per day to maintain your body weight:"
-                + newMaintenance.calculateMaintenance());
+        System.out.printf("Total Calories required per "
+                + "day to maintain your body weight: %.2f\n", newMaintenance.calculateMaintenance());
     }
 
     private void inputMeasurements() {
@@ -113,9 +116,16 @@ public class CalorieApp {
         System.out.println("Good job tracking today! \nMeasurements were successfully recorded");
     }
 
-    private ListOfMeasurements viewListOfMeasurements() {
-        return listOfMeasurements;
+    private void viewListOfMeasurements() {
+        System.out.println("List of Measurements:" + listOfMeasurements.viewListOfMeasurements());
 
     }
 
+    public void resetCalories() {
+        trackCaloriesConsumed.resetCalories();
+        System.out.println("Total calories have been reset!");
+    }
+
 }
+
+

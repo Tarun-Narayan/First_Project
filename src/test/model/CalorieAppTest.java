@@ -17,7 +17,7 @@ class CalorieAppTest {
         testList = new ListOfMeasurements();
         testTracker = new TrackCalories();
         testDatabase1 = new MaintenanceCalories(18, 180,65,"m");
-        testDatabase2 = new MaintenanceCalories(20, 176,63,"f");
+        testDatabase2 = new MaintenanceCalories(20, 170,65,"f");
     }
     @Test
     void testMaintenanceCaloriesMale(){
@@ -26,7 +26,7 @@ class CalorieAppTest {
     }
     @Test
     void testMaintenanceCaloriesFemale(){
-        assertEquals(1488.8020000000001, testDatabase2.calculateMaintenance());
+        assertEquals(1488.708, testDatabase2.calculateMaintenance());
 
     }
     @Test
@@ -55,6 +55,27 @@ class CalorieAppTest {
         TodaysMeasurements measurements = new TodaysMeasurements(70,32,45,40);
         testList.addNewMeasurements(measurements);
         assertEquals(measurements,testList.getLatestMeasurements());
+    }
+    @Test
+    void testViewNonEmptyListOfMeasurements(){
+        TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
+        testList.addNewMeasurements(measurements1);
+        TodaysMeasurements measurements2 = new TodaysMeasurements(73,31,43,39);
+        testList.addNewMeasurements(measurements2);
+        assertEquals("\nMeasurement1:\n" +
+                " Weight:70.0\n" +
+                " Waist:32.0\n" +
+                " Shoulders:45.0\n" +
+                " Chest:40.0\n" +
+                "Measurement2:\n" +
+                " Weight:73.0\n" +
+                " Waist:31.0\n" +
+                " Shoulders:43.0\n" +
+                " Chest:39.0",testList.viewListOfMeasurements());
+    }
+    @Test
+    void testViewEmptyListOfMeasurements(){
+        assertEquals("",testList.viewListOfMeasurements());
     }
 
 

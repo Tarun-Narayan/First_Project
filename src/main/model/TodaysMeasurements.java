@@ -14,4 +14,20 @@ public class TodaysMeasurements {
         this.shoulders = shoulders;
         this.chest = chest;
     }
+
+    public double getWeight() {
+        return this.bodyWeight;
+    }
+
+    public double getWaist() {
+        return this.waist;
+    }
+
+    public double getShoulders() {
+        return this.shoulders;
+    }
+
+    public double getChest() {
+        return this.chest;
+    }
 }
