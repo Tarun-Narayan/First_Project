@@ -1,6 +1,6 @@
 package model;
 
-//Represents the Calorie tracking functionality of the application.
+//Represents the Calorie tracking functionality of the application
 public class CalorieTracker {
     private double totalCaloriesConsumed;        //Total calories consumed by the calorie tracking individual
 

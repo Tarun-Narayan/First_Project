@@ -64,6 +64,14 @@ class CalorieAppTest {
         assertEquals(measurements,testList.getLatestMeasurements());
     }
     @Test
+    void testAddNewMeasurementsToNonEmptyList(){
+        TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
+        testList.addNewMeasurements(measurements1);
+        TodaysMeasurements measurements2 = new TodaysMeasurements(70,32,45,40);
+        testList.addNewMeasurements(measurements2);
+        assertEquals(measurements2,testList.getLatestMeasurements());
+    }
+    @Test
     void testViewNonEmptyListOfMeasurements(){
         TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
         testList.addNewMeasurements(measurements1);

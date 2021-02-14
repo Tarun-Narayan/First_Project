@@ -1,6 +1,6 @@
 package model;
 
-// Represents Today's measurements containing user's body weight, waist size, shoulder width and chest size.
+// Represents Today's measurements - containing user's body weight, waist size, shoulder width and chest size.
 public class TodaysMeasurements {
     private double bodyWeight;
     private float waist;

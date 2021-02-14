@@ -39,6 +39,6 @@ public class ListOfMeasurements {
      * EFFECTS: returns the last measurement made/added to the list
      */
     public TodaysMeasurements getLatestMeasurements() {
-        return listOfMeasurements.pollFirst();
+        return listOfMeasurements.pollLast();
     }
 }
