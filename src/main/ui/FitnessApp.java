@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 //Represents the Health & Fitness application.
 public class FitnessApp {
-    private static final String JSON_STORE = "./data/workroom.json";
+    private static final String JSON_STORE = "./data/ListOfMeasurements.json";
     private ListOfMeasurements listOfMeasurements;
     private CalorieTracker trackCaloriesConsumed;
     private Scanner input;

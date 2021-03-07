@@ -50,6 +50,7 @@ public class TodaysMeasurements implements Writable {
         return this.chest;
     }
 
+
     @Override
     /*
      *EFFECTS: See interface Writable

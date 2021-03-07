@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 //Represents a list of your previously made body measurements.
 public class ListOfMeasurements implements Writable {
@@ -44,6 +46,19 @@ public class ListOfMeasurements implements Writable {
      */
     public TodaysMeasurements getLatestMeasurements() {
         return listOfMeasurements.pollLast();
+    }
+
+    /*
+     * EFFECTS: returns the number of measurements made (i.e. considering weight, chest, waist and shoulders as 1
+     * measurement)
+     */
+    public int numMeasurements() {
+        return listOfMeasurements.size();
+    }
+
+    // EFFECTS: returns an unmodifiable list of thingies in this workroom
+    public List<TodaysMeasurements> getTodaysMeasurements() {
+        return Collections.unmodifiableList(listOfMeasurements);
     }
 
     @Override
