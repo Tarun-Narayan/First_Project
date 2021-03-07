@@ -52,7 +52,7 @@ public class Reader {
     }
 
     // MODIFIES: lom
-    // EFFECTS: parses Measurements from JSON object and adds them to workroom
+    // EFFECTS: parses Measurements from JSON object and adds them to List of Measurements
     private void addMeasurements(ListOfMeasurements lom, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("measurements");
         for (Object json : jsonArray) {
