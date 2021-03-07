@@ -17,4 +17,6 @@ my body weight(aka. my Basal Metabolic Rate).
 - As a user, I want to be able to add my current body weight, chest, shoulder and waist measurements 
 to a list of my previously taken measurements.
 - As a user, I want to be able to view my list of body measurements to monitor my progress.
+- As a user I want to be able to save my list of measurements to file.
+- As a user I want to be able to load my list of measurements from file.
 

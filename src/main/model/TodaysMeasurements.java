@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents Today's measurements - containing user's body weight, waist size, shoulder width and chest size.
-public class TodaysMeasurements {
+public class TodaysMeasurements implements Writable {
     private double bodyWeight;
     private float waist;
     private float shoulders;
@@ -45,5 +48,16 @@ public class TodaysMeasurements {
      */
     public double getChest() {
         return this.chest;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("weight", bodyWeight);
+        json.put("waist", waist);
+        json.put("chest", chest);
+        json.put("shoulders", shoulders);
+
+        return json;
     }
 }

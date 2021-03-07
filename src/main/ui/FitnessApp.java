@@ -4,23 +4,32 @@ import model.UserMaintenanceCalories;
 import model.ListOfMeasurements;
 import model.TodaysMeasurements;
 import model.CalorieTracker;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 
 //Represents the Health & Fitness application.
 public class FitnessApp {
+    private static final String JSON_STORE = "./data/workroom.json";
     private ListOfMeasurements listOfMeasurements;
     private CalorieTracker trackCaloriesConsumed;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-
-    /*
-     *EFFECTS: runs the Health & Fitness application
-     */
-    public FitnessApp() {
+    // EFFECTS: constructs List Of Measurements and runs the Health & Fitness application
+    public FitnessApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        listOfMeasurements = new ListOfMeasurements();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runCalorie();
     }
+
 
     /*
      *MODIFIES: this
@@ -64,6 +73,10 @@ public class FitnessApp {
             viewListOfMeasurements();
         } else if (command.equals("r")) {
             resetCalories();
+        } else if (command.equals("s")) {
+            saveListOfMeasurements();
+        } else if (command.equals("l")) {
+            loadListOfMeasurements();
         } else {
             System.out.println("Please select a valid option!");
         }
@@ -86,7 +99,9 @@ public class FitnessApp {
         System.out.println("\tt -> Track Calories");
         System.out.println("\tc -> Calculate your Maintenance Calories");
         System.out.println("\tm -> Record today's body measurements");
-        System.out.println("\tv -> View a list of all your previously made measurements");
+        System.out.println("\tv -> View a list of all measurements");
+        System.out.println("\ts -> Save the list of measurements made today");
+        System.out.println("\tl -> Load all your previously made measurements");
         System.out.println("\tr -> Reset tracked Calories");
         System.out.println("\tq -> quit");
     }
@@ -157,6 +172,29 @@ public class FitnessApp {
     public void resetCalories() {
         trackCaloriesConsumed.resetCalories();
         System.out.println("Total calories have been reset!");
+    }
+
+    // EFFECTS: saves the List of Measurements to file
+    private void saveListOfMeasurements() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(listOfMeasurements);
+            jsonWriter.close();
+            System.out.println("Saved your List of Measurements to:" + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads List of Measurements from file
+    private void loadListOfMeasurements() {
+        try {
+            listOfMeasurements = jsonReader.read();
+            System.out.println("Loaded your previously made List of Measurements from:" + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }
