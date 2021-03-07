@@ -8,6 +8,15 @@ public class UserMaintenanceCalories {
     private final int age;           //age of the calorie tracking individual in years
     private final String gender;        //gender of the calorie tracking individual
     private double maintenanceCalories;     //MaintenanceCalories of the calorie tracking individual
+    static final double maleAddend = 88.362; //Number required to be added to other measurements to calculate
+    //maintenance in men.
+    static final double femaleAddend = 447.593; //Number required to be added to other measurements to calculate
+    //maintenance in women.
+    static final double maleBodyWeightMultiplier = 13.397; //Number multiplied to a male user's body weight
+    static final double femaleBodyWeightMultiplier = 9.247; //Number multiplied to a female user's body weight
+    static final double maleHeightMultiplier = 4.799; //Number multiplied to a male user's height
+    static final double femaleHeightMultiplier = 3.098; //Number multiplied to a female user's height
+    static final double ageMultiplier = 4.33; //Number multiplied to a user's age
 
     /*
      * REQUIRES: userAge, userHeight and userWeight is non-negative.
@@ -30,9 +39,11 @@ public class UserMaintenanceCalories {
      */
     public double calculateMaintenance() {
         if (this.gender.equals("m")) {
-            maintenanceCalories = 88.362 + (13.397 * bodyWeight) + (4.799 * height) - (4.33 * age);
+            maintenanceCalories = maleAddend + (maleBodyWeightMultiplier * bodyWeight)
+                    + (maleHeightMultiplier * height) - (ageMultiplier * age);
         } else if (this.gender.equals("f")) {
-            maintenanceCalories = 447.593 + (9.247 * bodyWeight) + (3.098 * height) - (4.33 * age);
+            maintenanceCalories = femaleAddend + (femaleBodyWeightMultiplier * bodyWeight)
+                    + (femaleHeightMultiplier * height) - (ageMultiplier * age);
         } else {
             maintenanceCalories = 0;
         }

@@ -17,11 +17,11 @@ import org.json.*;
  * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  */
 
-public class JsonReader {
+public class Reader {
     private String source;
 
     // EFFECTS: constructs reader to read from source file
-    public JsonReader(String source) {
+    public Reader(String source) {
         this.source = source;
     }
 

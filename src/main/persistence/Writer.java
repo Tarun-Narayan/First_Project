@@ -9,13 +9,13 @@ import java.io.*;
  *Citation: Code obtained and modified from JsonSerializationDemo
  * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  */
-public class JsonWriter {
+public class Writer {
     private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
     // EFFECTS: constructs writer to write to destination file
-    public JsonWriter(String destination) {
+    public Writer(String destination) {
         this.destination = destination;
     }
 

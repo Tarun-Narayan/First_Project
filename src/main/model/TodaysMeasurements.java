@@ -51,6 +51,9 @@ public class TodaysMeasurements implements Writable {
     }
 
     @Override
+    /*
+     *EFFECTS: See interface Writable
+     */
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("weight", bodyWeight);

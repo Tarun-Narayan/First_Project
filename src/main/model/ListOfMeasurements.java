@@ -47,6 +47,9 @@ public class ListOfMeasurements implements Writable {
     }
 
     @Override
+    /*
+     *EFFECTS: See interface Writable
+     */
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("measurements", measurementsToJson());

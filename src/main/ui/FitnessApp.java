@@ -4,8 +4,8 @@ import model.UserMaintenanceCalories;
 import model.ListOfMeasurements;
 import model.TodaysMeasurements;
 import model.CalorieTracker;
-import persistence.JsonReader;
-import persistence.JsonWriter;
+import persistence.Reader;
+import persistence.Writer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,15 +18,15 @@ public class FitnessApp {
     private ListOfMeasurements listOfMeasurements;
     private CalorieTracker trackCaloriesConsumed;
     private Scanner input;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private Writer writer;
+    private Reader reader;
 
     // EFFECTS: constructs List Of Measurements and runs the Health & Fitness application
     public FitnessApp() throws FileNotFoundException {
         input = new Scanner(System.in);
         listOfMeasurements = new ListOfMeasurements();
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        writer = new Writer(JSON_STORE);
+        reader = new Reader(JSON_STORE);
         runCalorie();
     }
 
@@ -177,9 +177,9 @@ public class FitnessApp {
     // EFFECTS: saves the List of Measurements to file
     private void saveListOfMeasurements() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(listOfMeasurements);
-            jsonWriter.close();
+            writer.open();
+            writer.write(listOfMeasurements);
+            writer.close();
             System.out.println("Saved your List of Measurements to:" + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -190,7 +190,7 @@ public class FitnessApp {
     // EFFECTS: loads List of Measurements from file
     private void loadListOfMeasurements() {
         try {
-            listOfMeasurements = jsonReader.read();
+            listOfMeasurements = reader.read();
             System.out.println("Loaded your previously made List of Measurements from:" + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
