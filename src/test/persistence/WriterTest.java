@@ -23,7 +23,7 @@ public class WriterTest extends JsonTest{
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyListOfMeasurements() {
         try {
             ListOfMeasurements lom = new ListOfMeasurements();
             Writer writer = new Writer("./data/testWriterEmptyListOfMeasurements.json");
@@ -40,7 +40,7 @@ public class WriterTest extends JsonTest{
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralListOfMeasurements() {
         try {
             ListOfMeasurements lom = new ListOfMeasurements();
             lom.addNewMeasurements(new TodaysMeasurements(65, 32, 45, 42));
