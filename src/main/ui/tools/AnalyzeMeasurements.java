@@ -7,13 +7,14 @@ import persistence.Reader;
 import persistence.Writer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
+//Represents the graphical user interface for the analyze measurements feature of the application
 public class AnalyzeMeasurements extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/ListOfMeasurements.json";
     private ListOfMeasurements listOfMeasurements;
@@ -38,6 +39,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
     JTextField txtQuestion5;
     JTextArea txtArea;
 
+    //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
     public AnalyzeMeasurements() throws FileNotFoundException, IOException {
         frame1 = new JFrame();
         panel = new JPanel();
@@ -53,12 +55,16 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         pack();
         setVisible(true);
         panel.setLayout(null);
+        panel.setBackground(Color.YELLOW);
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Measurement analysis"));
         add(panel);
         setSize(1000, 500);
         listOfMeasurements = new ListOfMeasurements();
 
     }
 
+    //EFFECTS: Constructs the labels for the panel
     public void addLabels() {
         label1 = new JLabel("Enter Today's Weight:");
         label1.setBounds(10, 20, 200, 25);
@@ -78,7 +84,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
 
     }
 
-
+    //EFFECTS: Constructs the text boxes for the panel
     public void addTextBox() {
         txtQuestion1 = new JTextField(40);
         txtQuestion1.setBounds(250, 20, 200, 25);
@@ -109,6 +115,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: Constructs the buttons for the panel
     public void addButtons1() {
         btn1 = new JButton("Add Measurement");
         btn1.setBounds(50, 200, 150, 25);
@@ -136,6 +143,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         panel.add(btn5);
     }
 
+    //EFFECTS: Constructs the buttons for the panel
     public void addButtons2() {
         btn6 = new JButton("Quit Tracking");
         btn6.setBounds(50, 300, 200, 25);
@@ -143,6 +151,9 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         panel.add(btn6);
     }
 
+    /*
+     *EFFECTS: Performs the action associated with a particular button click
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
@@ -161,6 +172,10 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
 
     }
 
+    /*
+     *MODIFIES: listOfMeasurements
+     *EFFECTS: Adds a new measurement to user's list of measurements
+     */
     public void addMeasurement() {
         String s1 = txtQuestion1.getText();
         Float weight = Float.parseFloat(s1);
@@ -176,6 +191,9 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         txtArea.setText("Measurement successfully added! ");
     }
 
+    /*
+     *EFFECTS: Retrieves the latest measurement made with the specified weight and Displays it in the text area
+     */
     public void retrieveMeasurement() {
         String s1 = txtQuestion5.getText();
         Float weight = Float.parseFloat(s1);
@@ -184,12 +202,17 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         txtArea.insert(result, 0);
     }
 
+    /*
+     *EFFECTS: Displays the list of measurements in the text area
+     */
     public void viewMeasurements() {
         String result = listOfMeasurements.viewListOfMeasurements() + "\n";
         txtArea.setText(null);
         txtArea.insert(result, 0);
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads List of Measurements from file
     public void loadMeasurements() {
         try {
             listOfMeasurements = reader.read();
@@ -202,6 +225,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
 
     }
 
+    // EFFECTS: saves the List of Measurements to file
     public void saveMeasurements() {
         try {
             writer.open();

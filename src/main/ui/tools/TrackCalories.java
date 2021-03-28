@@ -3,9 +3,11 @@ package ui.tools;
 import model.CalorieTracker;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Represents the graphical user interface for the track calories feature of the application
 public class TrackCalories extends JFrame implements ActionListener {
     private CalorieTracker trackCaloriesConsumed;
     JFrame frame1;
@@ -17,7 +19,7 @@ public class TrackCalories extends JFrame implements ActionListener {
     JTextField txtQuestion1;
     JTextField txtQuestion2;
 
-
+    //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
     public TrackCalories() {
         frame1 = new JFrame();
         panel = new JPanel();
@@ -30,11 +32,15 @@ public class TrackCalories extends JFrame implements ActionListener {
         pack();
         setVisible(true);
         panel.setLayout(null);
+        panel.setBackground(Color.GREEN);
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Track Calories"));
         add(panel);
         setSize(500, 500);
         trackCaloriesConsumed = new CalorieTracker();
     }
 
+    //EFFECTS: Constructs the labels for the panel
     public void addLabels() {
         label1 = new JLabel("Enter total calories consumed in this meal:");
         label1.setBounds(10, 20, 300, 25);
@@ -46,6 +52,7 @@ public class TrackCalories extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: Constructs the text boxes for the panel
     public void addTextBox() {
         txtQuestion1 = new JTextField(40);
         txtQuestion1.setBounds(250, 20, 200, 25);
@@ -56,6 +63,7 @@ public class TrackCalories extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: Constructs the buttons for the panel
     public void addButtons() {
         btn1 = new JButton("Track meal!");
         btn1.setBounds(50, 200, 150, 25);
@@ -67,17 +75,28 @@ public class TrackCalories extends JFrame implements ActionListener {
         panel.add(btn2);
     }
 
+    /*
+     *EFFECTS: Performs the action associated with a particular button click
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
-            String s1 = txtQuestion1.getText();
-            Double totalCal = Double.parseDouble(s1);
-            trackCaloriesConsumed.addCalories(totalCal);
+            trackCalories();
         } else if (e.getSource() == btn2) {
             this.dispose();
         }
+
+    }
+
+    /*
+     *MODIFIES: trackCaloriesConsumed
+     *EFFECTS: tracks the calories for a particular meal and adds it to the total calories consumed
+     */
+    public void trackCalories() {
+        String s1 = txtQuestion1.getText();
+        Double totalCal = Double.parseDouble(s1);
+        trackCaloriesConsumed.addCalories(totalCal);
         String result = String.valueOf(trackCaloriesConsumed.getTotalCaloriesConsumed());
         txtQuestion2.setText(result);
-
     }
 }

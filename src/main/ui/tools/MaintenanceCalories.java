@@ -1,12 +1,13 @@
 package ui.tools;
 
-import model.CalorieTracker;
 import model.UserMaintenanceCalories;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Represents the graphical user interface for the calculate maintenance calories feature of the application
 public class MaintenanceCalories extends JFrame implements ActionListener {
     private UserMaintenanceCalories userMaintenance;
     JFrame frame1;
@@ -24,7 +25,7 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
     JTextField txtQuestion4;
     JTextField txtQuestion5;
 
-
+    //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
     public MaintenanceCalories() {
         frame1 = new JFrame();
         panel = new JPanel();
@@ -37,10 +38,14 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
         pack();
         setVisible(true);
         panel.setLayout(null);
+        panel.setBackground(Color.RED);
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Calculate Maintenance calories"));
         add(panel);
         setSize(500, 500);
     }
 
+    //EFFECTS: Constructs the labels for the panel
     public void addLabels() {
         label1 = new JLabel("Enter gender (m/f):");
         label1.setBounds(10, 20, 200, 25);
@@ -64,6 +69,7 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: Constructs the text boxes for the panel
     public void addTextBox() {
         txtQuestion1 = new JTextField(40);
         txtQuestion1.setBounds(250, 20, 200, 25);
@@ -87,6 +93,7 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: Constructs the buttons for the panel
     public void addButtons() {
         btn1 = new JButton("Calculate Maintenance");
         btn1.setBounds(50, 300, 200, 25);
@@ -99,22 +106,33 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
         panel.add(btn2);
     }
 
+    /*
+     *EFFECTS: Performs the action associated with a particular button click
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
-            String gender = txtQuestion1.getText();
-            String s2 = txtQuestion2.getText();
-            String s3 = txtQuestion3.getText();
-            String s4 = txtQuestion4.getText();
-            Double height = Double.parseDouble(s4);
-            Double weight = Double.parseDouble(s3);
-            int age = Integer.parseInt(s2);
-            userMaintenance = new UserMaintenanceCalories(age, height, weight, gender);
+            getMaintenance();
         } else if (e.getSource() == btn2) {
             this.dispose();
         }
+
+    }
+
+    /*
+     *MODIFIES: userMaintenance
+     *EFFECTS: calculates the user's maintenance calories (i.e, Basal Metabolic Rate)
+     */
+    public void getMaintenance() {
+        String gender = txtQuestion1.getText();
+        String s2 = txtQuestion2.getText();
+        String s3 = txtQuestion3.getText();
+        String s4 = txtQuestion4.getText();
+        Double height = Double.parseDouble(s4);
+        Double weight = Double.parseDouble(s3);
+        int age = Integer.parseInt(s2);
+        userMaintenance = new UserMaintenanceCalories(age, height, weight, gender);
         String result = String.valueOf(userMaintenance.calculateMaintenance());
         txtQuestion5.setText(result);
-
     }
 }
