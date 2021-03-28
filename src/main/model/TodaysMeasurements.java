@@ -5,7 +5,7 @@ import persistence.Writable;
 
 // Represents Today's measurements - containing user's body weight, waist size, shoulder width and chest size.
 public class TodaysMeasurements implements Writable {
-    private double bodyWeight;
+    private float bodyWeight;
     private float waist;
     private float shoulders;
     private float chest;
@@ -15,11 +15,21 @@ public class TodaysMeasurements implements Writable {
      *EFFECTS: Today's Measurements has given weight(in kg), waist(in inches), shoulders(in inches) and chest(in inches)
      * measurements
      */
-    public TodaysMeasurements(double weight, float waist, float shoulders, float chest) {
+    public TodaysMeasurements(float weight, float waist, float shoulders, float chest) {
         this.bodyWeight = weight;
         this.waist = waist;
         this.shoulders = shoulders;
         this.chest = chest;
+    }
+
+    /*
+     *EFFECTS: Returns this measurement as a string
+     */
+    public String measurementString() {
+        String result = "\n Body Weight:" + this.getWeight() + " Kg" + "\n Waist:" + this.getWaist()
+                + " inches" + "\n Shoulders:" + this.getShoulders() + " inches"
+                + "\n Chest:" + this.getChest() + " inches";
+        return result;
     }
 
     /*

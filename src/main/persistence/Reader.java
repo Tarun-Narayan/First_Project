@@ -64,7 +64,7 @@ public class Reader {
     // MODIFIES: lom
     // EFFECTS: parses Today's Measurement from JSON object and adds it to List of Measurements
     private void addMeasurement(ListOfMeasurements lom, JSONObject jsonObject) {
-        double weight = jsonObject.getFloat("weight");
+        float weight = jsonObject.getFloat("weight");
         float waist = jsonObject.getFloat("waist");
         float shoulders = jsonObject.getFloat("shoulders");
         float chest = jsonObject.getFloat("chest");

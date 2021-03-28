@@ -2,14 +2,17 @@ package ui.tools;
 
 import model.ListOfMeasurements;
 import model.TodaysMeasurements;
+
 import persistence.Reader;
 import persistence.Writer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 
 public class AnalyzeMeasurements extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/ListOfMeasurements.json";
@@ -21,17 +24,19 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
     JLabel label2;
     JLabel label3;
     JLabel label4;
-    JLabel label5;
     JPanel panel;
     JButton btn1;
     JButton btn2;
     JButton btn3;
     JButton btn4;
+    JButton btn5;
+    JButton btn6;
     JTextField txtQuestion1;
     JTextField txtQuestion2;
     JTextField txtQuestion3;
     JTextField txtQuestion4;
     JTextField txtQuestion5;
+    JTextArea txtArea;
 
     public AnalyzeMeasurements() throws FileNotFoundException, IOException {
         frame1 = new JFrame();
@@ -40,7 +45,8 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         reader = new Reader(JSON_STORE);
         addLabels();
         addTextBox();
-        addButtons();
+        addButtons1();
+        addButtons2();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Measurement Analysis");
@@ -70,11 +76,8 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         label4.setBounds(10, 110, 350, 25);
         panel.add(label4);
 
-        label5 = new JLabel("List Of Measurements:");
-        label5.setBounds(10, 140, 350, 25);
-        panel.add(label5);
-
     }
+
 
     public void addTextBox() {
         txtQuestion1 = new JTextField(40);
@@ -93,14 +96,20 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         txtQuestion4.setBounds(250, 110, 200, 25);
         panel.add(txtQuestion4);
 
-        txtQuestion5 = new JTextField(1);
-        txtQuestion5.setBounds(250, 140, 1000, 25);
+        txtQuestion5 = new JTextField(40);
+        txtQuestion5.setBounds(250, 140, 200, 25);
         panel.add(txtQuestion5);
+
+        txtArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(txtArea);
+        scrollPane.setBounds(250, 170, 500, 500);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
 
 
     }
 
-    public void addButtons() {
+    public void addButtons1() {
         btn1 = new JButton("Add Measurement");
         btn1.setBounds(50, 200, 150, 25);
         btn1.addActionListener(this);
@@ -120,39 +129,74 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         btn4.setBounds(50, 275, 200, 25);
         btn4.addActionListener(this);
         panel.add(btn4);
+
+        btn5 = new JButton("Retrieve Measurement(weight)");
+        btn5.setBounds(10, 140, 230, 25);
+        btn5.addActionListener(this);
+        panel.add(btn5);
+    }
+
+    public void addButtons2() {
+        btn6 = new JButton("Quit Tracking");
+        btn6.setBounds(50, 290, 200, 25);
+        btn6.addActionListener(this);
+        panel.add(btn6);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
-            String s1 = txtQuestion1.getText();
-            Float weight = Float.parseFloat(s1);
-            String s2 = txtQuestion2.getText();
-            Float chest = Float.parseFloat(s2);
-            String s3 = txtQuestion3.getText();
-            Float waist = Float.parseFloat(s3);
-            String s4 = txtQuestion4.getText();
-            Float shoulder = Float.parseFloat(s4);
-            TodaysMeasurements newMeasurements = new TodaysMeasurements(weight, waist, shoulder, chest);
-            listOfMeasurements.addNewMeasurements(newMeasurements);
-
+            addMeasurement();
         } else if (e.getSource() == btn2) {
-            String result = listOfMeasurements.viewListOfMeasurements() + "\n";
-            txtQuestion5.setText(result);
+            viewMeasurements();
         } else if (e.getSource() == btn3) {
             saveMeasurements();
         } else if (e.getSource() == btn4) {
             loadMeasurements();
+        } else if (e.getSource() == btn5) {
+            retrieveMeasurement();
+        } else if (e.getSource() == btn6) {
+            retrieveMeasurement();
         }
 
+    }
+
+    public void addMeasurement() {
+        String s1 = txtQuestion1.getText();
+        Float weight = Float.parseFloat(s1);
+        String s2 = txtQuestion2.getText();
+        Float chest = Float.parseFloat(s2);
+        String s3 = txtQuestion3.getText();
+        Float waist = Float.parseFloat(s3);
+        String s4 = txtQuestion4.getText();
+        Float shoulder = Float.parseFloat(s4);
+        TodaysMeasurements newMeasurements = new TodaysMeasurements(weight, waist, shoulder, chest);
+        listOfMeasurements.addNewMeasurements(newMeasurements);
+        txtArea.setText(null);
+        txtArea.setText("Measurement successfully added! ");
+    }
+
+    public void retrieveMeasurement() {
+        String s1 = txtQuestion5.getText();
+        Float weight = Float.parseFloat(s1);
+        String result = listOfMeasurements.retrieveMeasurement(weight);
+        txtArea.setText(null);
+        txtArea.insert(result, 0);
+    }
+
+    public void viewMeasurements() {
+        String result = listOfMeasurements.viewListOfMeasurements() + "\n";
+        txtArea.setText(null);
+        txtArea.insert(result, 0);
     }
 
     public void loadMeasurements() {
         try {
             listOfMeasurements = reader.read();
-            System.out.println("Loaded your previously made List of Measurements from:" + JSON_STORE);
+            txtArea.setText(null);
+            txtArea.setText("Loaded your Measurements from:" + JSON_STORE);
         } catch (IOException a) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            txtArea.setText("Unable to read from file: " + JSON_STORE);
         }
 
 
@@ -163,8 +207,10 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
             writer.open();
             writer.write(listOfMeasurements);
             writer.close();
+            txtArea.setText(null);
+            txtArea.setText("Saved your Measurements to:" + JSON_STORE);
         } catch (FileNotFoundException a) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            txtArea.setText("Unable to write to file: " + JSON_STORE);
         }
     }
 }

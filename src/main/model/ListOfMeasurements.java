@@ -61,6 +61,19 @@ public class ListOfMeasurements implements Writable {
         return Collections.unmodifiableList(listOfMeasurements);
     }
 
+    /*
+     * EFFECTS: returns the measurement in which user's body weight was equal to the entered body weight.
+     */
+    public String retrieveMeasurement(float weight) {
+        String result = "Invalid weight!";
+        for (int i = 0; i <= listOfMeasurements.size() - 1; i++) {
+            if (listOfMeasurements.get(i).getWeight() == weight) {
+                result = listOfMeasurements.get(i).measurementString();
+            }
+        }
+        return result;
+    }
+
     @Override
     /*
      *EFFECTS: See interface Writable

@@ -64,6 +64,30 @@ class CalorieAppTest {
         assertEquals(measurements,testList.getLatestMeasurements());
     }
     @Test
+    void testRetrieveValidMeasurementFromList(){
+        TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
+        testList.addNewMeasurements(measurements1);
+        TodaysMeasurements measurements2 = new TodaysMeasurements(68,31,47,39);
+        testList.addNewMeasurements(measurements2);
+        TodaysMeasurements measurements3 = new TodaysMeasurements(65,30,49,37);
+        testList.addNewMeasurements(measurements3);
+        assertEquals("\n Body Weight:" + 68.0 + " Kg" + "\n Waist:" + 31.0
+                + " inches" + "\n Shoulders:" + 47.0 + " inches"
+                + "\n Chest:" + 39.0 + " inches", testList.retrieveMeasurement(68));
+
+    }
+    @Test
+    void testRetrieveInvalidMeasurementFromList(){
+        TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
+        testList.addNewMeasurements(measurements1);
+        TodaysMeasurements measurements2 = new TodaysMeasurements(69,31,47,39);
+        testList.addNewMeasurements(measurements2);
+        TodaysMeasurements measurements3 = new TodaysMeasurements(65,30,49,37);
+        testList.addNewMeasurements(measurements3);
+        assertEquals("Invalid weight!", testList.retrieveMeasurement(68));
+
+    }
+    @Test
     void testAddNewMeasurementsToNonEmptyList(){
         TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
         testList.addNewMeasurements(measurements1);
@@ -73,12 +97,12 @@ class CalorieAppTest {
     }
     @Test
     void testViewNonEmptyListOfMeasurements(){
-        TodaysMeasurements measurements1 = new TodaysMeasurements(70,32,45,40);
+        TodaysMeasurements measurements1 = new TodaysMeasurements(57,32,45,40);
         testList.addNewMeasurements(measurements1);
         TodaysMeasurements measurements2 = new TodaysMeasurements(73,31,43,39);
         testList.addNewMeasurements(measurements2);
         assertEquals("\nMeasurement1:\n" +
-                " Body Weight:70.0 Kg\n" +
+                " Body Weight:57.0 Kg\n" +
                 " Waist:32.0 inches\n" +
                 " Shoulders:45.0 inches\n" +
                 " Chest:40.0 inches\n" +

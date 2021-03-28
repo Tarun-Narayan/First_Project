@@ -7,11 +7,16 @@ import model.CalorieTracker;
 import persistence.Reader;
 import persistence.Writer;
 import ui.tools.AnalyzeMeasurements;
+import ui.tools.MaintenanceCalories;
 import ui.tools.TrackCalories;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -46,7 +51,6 @@ public class FitnessApp extends JFrame implements ActionListener {
         reader = new Reader(JSON_STORE);
         runCalorie();
     }
-
 
     /*
      *MODIFIES: this
@@ -114,12 +118,12 @@ public class FitnessApp extends JFrame implements ActionListener {
     public void displayMenu() {
         btn1 = new JButton("Track Calories");
         btn2 = new JButton("Analyze Measurements");
-        btn3 = new JButton("Record today's body measurements");
-        btn4 = new JButton("View a list of all measurements");
-        btn1.setBounds(0, 200, 300, 100);
-        btn2.setBounds(0, 300, 300, 100);
-        btn3.setBounds(0, 400, 300, 100);
-        btn4.setBounds(0, 500, 300, 100);
+        btn3 = new JButton("Calculate Maintenance Calories");
+        btn4 = new JButton("Quit The Application");
+        btn1.setBounds(200, 200, 300, 100);
+        btn2.setBounds(200, 300, 300, 100);
+        btn3.setBounds(200, 400, 300, 100);
+        btn4.setBounds(200, 500, 300, 100);
         btn1.addActionListener(this);
         btn2.addActionListener(this);
         btn3.addActionListener(this);
@@ -169,7 +173,7 @@ public class FitnessApp extends JFrame implements ActionListener {
      */
     public void inputMeasurements() {
         System.out.println("What was your body weight today?");
-        double weight = input.nextDouble();
+        float weight = input.nextFloat();
         System.out.println("What was your waist measurement today?(in inches)");
         float waist = input.nextFloat();
         System.out.println("What was your chest measurement today?(in inches)");
@@ -187,6 +191,21 @@ public class FitnessApp extends JFrame implements ActionListener {
     public void viewListOfMeasurements() {
         System.out.println("List of Measurements:" + listOfMeasurements.viewListOfMeasurements());
 
+    }
+
+    /*
+     *EFFECTS: Plays the audio file (i.e., the .wav file)
+     */
+
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /*
@@ -224,8 +243,10 @@ public class FitnessApp extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
+            playSound("./data/StarWars3.wav");
             new TrackCalories();
         } else if (e.getSource() == btn2) {
+            playSound("./data/StarWars3.wav");
             try {
                 new AnalyzeMeasurements();
             } catch (FileNotFoundException fileNotFoundException) {
@@ -233,8 +254,14 @@ public class FitnessApp extends JFrame implements ActionListener {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-        }
+        } else if (e.getSource() == btn3) {
+            playSound("./data/StarWars3.wav");
+            new MaintenanceCalories();
 
+        } else if (e.getSource() == btn4) {
+            System.exit(0);
+
+        }
     }
 }
 
