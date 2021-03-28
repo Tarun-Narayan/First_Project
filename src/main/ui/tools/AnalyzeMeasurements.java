@@ -138,7 +138,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
 
     public void addButtons2() {
         btn6 = new JButton("Quit Tracking");
-        btn6.setBounds(50, 290, 200, 25);
+        btn6.setBounds(50, 300, 200, 25);
         btn6.addActionListener(this);
         panel.add(btn6);
     }
@@ -156,7 +156,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
         } else if (e.getSource() == btn5) {
             retrieveMeasurement();
         } else if (e.getSource() == btn6) {
-            retrieveMeasurement();
+            dispose();
         }
 
     }
