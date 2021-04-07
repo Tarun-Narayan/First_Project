@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalorieAppTest {
     private ListOfMeasurements testList;
+    private TodaysMeals testMeals;
     private UserMaintenanceCalories testDatabase1;
     private UserMaintenanceCalories testDatabase2;
     private UserMaintenanceCalories testDatabase3;
@@ -17,6 +18,7 @@ class CalorieAppTest {
     public void setup() {
         testList = new ListOfMeasurements();
         testTracker = new CalorieTracker();
+        testMeals = new TodaysMeals();
         testDatabase1 = new UserMaintenanceCalories(18, 180,65,"m");
         testDatabase2 = new UserMaintenanceCalories(20, 170,65,"f");
         testDatabase3 = new UserMaintenanceCalories(20, 170,65,"g");
@@ -115,6 +117,44 @@ class CalorieAppTest {
     @Test
     void testViewEmptyListOfMeasurements(){
         assertEquals("",testList.viewListOfMeasurements());
+    }
+    @Test
+    void testAddNewMealToEmptyTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        assertEquals("Preparation Time for meal: 23 minutes", testMeals.getPrepTime("Oatmeal"));
+    }
+    @Test
+    void testAddNewMealToNonEmptyTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("Preparation Time for meal: 26 minutes",testMeals.getPrepTime("French Toast"));
+    }
+    @Test
+    void testRemoveValidMealFromTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("Meal removed!",testMeals.removeMeal("Oatmeal"));
+        testMeals.removeMeal("Oatmeal");
+        assertEquals("\n1. French Toast",testMeals.viewTodaysMeals());
+    }
+    @Test
+    void testRemoveInvalidMealFromTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("Invalid meal!",testMeals.removeMeal("Pancake"));
+        assertEquals("\n1. French Toast\n" +
+                "2. Oatmeal",testMeals.viewTodaysMeals());
+    }
+    @Test
+    void testViewNonEmptyTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("\n1. French Toast\n" +
+                "2. Oatmeal",testMeals.viewTodaysMeals());
+    }
+    @Test
+    void testViewEmptyTodaysMeals(){
+        assertEquals("", testMeals.viewTodaysMeals());
     }
 
 

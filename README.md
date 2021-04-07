@@ -20,3 +20,9 @@ to a list of my previously taken measurements.
 - As a user I want to be able to save my list of measurements to file.
 - As a user I want to be able to load my list of measurements from file.
 
+## *Phase 4: Task 2*-
+- I chose to implement the Map interface in my code.
+- Class where the Map interface is being used: TodaysMeals.
+
+ *Phase 4: Task 3*-
+-

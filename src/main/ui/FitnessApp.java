@@ -1,8 +1,9 @@
 package ui;
 
-import ui.tools.AnalyzeMeasurements;
-import ui.tools.MaintenanceCalories;
-import ui.tools.TrackCalories;
+import ui.tools.AnalyzeMeasurementsGUI;
+import ui.tools.MaintenanceCaloriesGUI;
+import ui.tools.MealTrackerGUI;
+import ui.tools.TrackCaloriesGUI;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -23,6 +24,7 @@ public class FitnessApp extends JFrame implements ActionListener {
     JButton btn2;
     JButton btn3;
     JButton btn4;
+    JButton btn5;
 
     // EFFECTS: constructs List Of Measurements and runs the Health & Fitness application
     public FitnessApp() throws FileNotFoundException {
@@ -35,7 +37,7 @@ public class FitnessApp extends JFrame implements ActionListener {
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Home Page"));
         add(panel);
-        setSize(500, 500);
+        setSize(3000, 3000);
         displayMenu();
     }
 
@@ -46,19 +48,23 @@ public class FitnessApp extends JFrame implements ActionListener {
         btn1 = new JButton("Track Calories");
         btn2 = new JButton("Analyze Measurements");
         btn3 = new JButton("Calculate Maintenance Calories");
-        btn4 = new JButton("Quit The Application");
+        btn4 = new JButton("Track Meals for Today");
+        btn5 = new JButton("Quit The Application");
         btn1.setBounds(200, 200, 300, 100);
         btn2.setBounds(200, 300, 300, 100);
         btn3.setBounds(200, 400, 300, 100);
         btn4.setBounds(200, 500, 300, 100);
+        btn5.setBounds(200, 600, 300, 100);
         btn1.addActionListener(this);
         btn2.addActionListener(this);
         btn3.addActionListener(this);
         btn4.addActionListener(this);
+        btn5.addActionListener(this);
         panel.add(btn1);
         panel.add(btn2);
         panel.add(btn3);
         panel.add(btn4);
+        panel.add(btn5);
     }
 
     /*
@@ -83,23 +89,31 @@ public class FitnessApp extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
             playSound("./data/StarWars3.wav");
-            new TrackCalories();
+            new TrackCaloriesGUI();
         } else if (e.getSource() == btn2) {
-            playSound("./data/StarWars3.wav");
-            try {
-                new AnalyzeMeasurements();
-            } catch (FileNotFoundException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            analyze();
         } else if (e.getSource() == btn3) {
             playSound("./data/StarWars3.wav");
-            new MaintenanceCalories();
+            new MaintenanceCaloriesGUI();
 
-        } else if (e.getSource() == btn4) {
+        } else if (e.getSource() == btn5) {
             System.exit(0);
 
+        } else if (e.getSource() == btn4) {
+            playSound("./data/StarWars3.wav");
+            new MealTrackerGUI();
+        }
+    }
+
+    //EFFECTS: Runs the analyze measurements feature of the application
+    public void analyze() {
+        playSound("./data/StarWars3.wav");
+        try {
+            new AnalyzeMeasurementsGUI();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 }

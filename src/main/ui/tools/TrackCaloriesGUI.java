@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Represents the graphical user interface for the track calories feature of the application
-public class TrackCalories extends JFrame implements ActionListener {
+public class TrackCaloriesGUI extends JFrame implements ActionListener {
     private CalorieTracker trackCaloriesConsumed;
     JFrame frame1;
     JLabel label1;
@@ -20,7 +20,7 @@ public class TrackCalories extends JFrame implements ActionListener {
     JTextField txtQuestion2;
 
     //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
-    public TrackCalories() {
+    public TrackCaloriesGUI() {
         frame1 = new JFrame();
         panel = new JPanel();
         addLabels();

@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 //Represents the graphical user interface for the analyze measurements feature of the application
-public class AnalyzeMeasurements extends JFrame implements ActionListener {
+public class AnalyzeMeasurementsGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/ListOfMeasurements.json";
     private ListOfMeasurements listOfMeasurements;
     private Writer writer;
@@ -40,7 +40,7 @@ public class AnalyzeMeasurements extends JFrame implements ActionListener {
     JTextArea txtArea;
 
     //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
-    public AnalyzeMeasurements() throws FileNotFoundException, IOException {
+    public AnalyzeMeasurementsGUI() throws FileNotFoundException, IOException {
         frame1 = new JFrame();
         panel = new JPanel();
         writer = new Writer(JSON_STORE);

@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Represents the graphical user interface for the calculate maintenance calories feature of the application
-public class MaintenanceCalories extends JFrame implements ActionListener {
+public class MaintenanceCaloriesGUI extends JFrame implements ActionListener {
     private UserMaintenanceCalories userMaintenance;
     JFrame frame1;
     JLabel label1;
@@ -26,7 +26,7 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
     JTextField txtQuestion5;
 
     //EFFECTS: Constructs the frame and adds the buttons, labels, text boxes, and a panel
-    public MaintenanceCalories() {
+    public MaintenanceCaloriesGUI() {
         frame1 = new JFrame();
         panel = new JPanel();
         addLabels();
@@ -55,11 +55,11 @@ public class MaintenanceCalories extends JFrame implements ActionListener {
         label2.setBounds(10, 50, 200, 25);
         panel.add(label2);
 
-        label3 = new JLabel("Enter Weight:");
+        label3 = new JLabel("Enter Weight(Kg):");
         label3.setBounds(10, 80, 200, 25);
         panel.add(label3);
 
-        label4 = new JLabel("Enter Height:");
+        label4 = new JLabel("Enter Height(cm):");
         label4.setBounds(10, 110, 200, 25);
         panel.add(label4);
 
