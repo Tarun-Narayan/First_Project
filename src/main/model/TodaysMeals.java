@@ -58,7 +58,7 @@ public class TodaysMeals {
             result = meals.get(name);
             return "Preparation Time for meal: " + result + " minutes";
         } catch (NullPointerException e) {
-            String result1 = "Invalid meal!";
+            String result1 = "Invalid Meal!";
             return result1;
         }
     }

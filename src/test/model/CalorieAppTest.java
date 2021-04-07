@@ -139,14 +139,17 @@ class CalorieAppTest {
     }
     @Test
     void testRemoveInvalidMealFromTodaysMeals(){
-        try {
-            testMeals.addMeal("Oatmeal", 23);
-            testMeals.addMeal("French Toast", 26);
-            assertEquals("Invalid meal!", testMeals.removeMeal("Pancake"));
-            testMeals.removeMeal("Pancake");
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("Invalid meal!",testMeals.removeMeal("Pancake"));
+        assertEquals("\n1. French Toast\n" +
+                "2. Oatmeal",testMeals.viewTodaysMeals());
+    }
+    @Test
+    void testGetInvalidPrepTimeFromTodaysMeals(){
+        testMeals.addMeal("Oatmeal", 23);
+        testMeals.addMeal("French Toast", 26);
+        assertEquals("Invalid Meal!",testMeals.getPrepTime("Pancake"));
     }
     @Test
     void testViewNonEmptyTodaysMeals(){
